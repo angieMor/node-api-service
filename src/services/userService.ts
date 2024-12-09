@@ -1,4 +1,5 @@
 import MovieDTO from "../dto/movie.dto";
+import UserDTO from "../dto/user.dto";
 import UserRepository from "../repositories/userRepository";
 
 class UserService {
@@ -6,6 +7,10 @@ class UserService {
 
     constructor(userRepository: UserRepository) {
         this.userRepository = userRepository;
+    }
+
+    async createUser(user: UserDTO) {
+        return await this.userRepository.createUser(user);
     }
 
     async getFavoriteMoviesByUserById(id: number) {

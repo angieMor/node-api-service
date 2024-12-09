@@ -22,8 +22,8 @@ const User = sequelize.define('User', {
     },
     favorite_movies: {
         type: DataTypes.JSON,
-        default: {},
-        allowNull: false,
+        defaultValue: {},
+        allowNull: true,
     },
 }, {
     tableName: 'users',

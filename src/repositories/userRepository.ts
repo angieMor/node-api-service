@@ -1,8 +1,18 @@
 import User from "../models/userModel";
 import MovieDTO from "../dto/movie.dto";
+import UserDTO from "../dto/user.dto";
 
 // db access
 class UserRepository {
+    async createUser(user: UserDTO) {
+        try {
+            return await User.create(user);
+        } catch (error: any) {
+            console.error(`Error creating user: ${error}`)
+            throw error;
+        }
+    };
+
     async getFavoriteMoviesByUserById(id: number) {
         try {
             const user = await User.findByPk(id, {
@@ -18,7 +28,7 @@ class UserRepository {
             console.error(`Error fetching favorite movies: ${error}`);
             throw error;
         }
-    }
+    };
 
     async addMovieToFavoritesByUserId(id: number, movie: MovieDTO) {
         try {
@@ -40,7 +50,7 @@ class UserRepository {
             console.error(`Error adding favorite movie: ${error}`);
             throw error;
         }
-    }
+    };
 
     async updateFavoriteMovieByIdAndByUserId(id: number, movie: MovieDTO) {
         try {
@@ -67,7 +77,7 @@ class UserRepository {
             console.error(`Error updating favorite movie: ${error}`);
             throw error;
         }
-    }
+    };
 
     async deleteFavoriteMovieByIdAndByUserId(id: number, movieId: string) {
         try {
@@ -94,7 +104,7 @@ class UserRepository {
             console.error(`Error deleting favorite movie: ${error}`);
             throw error;
         }
-    }
+    };
 }
 
 export default UserRepository;

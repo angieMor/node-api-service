@@ -13,6 +13,11 @@ class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
+    createUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.userRepository.createUser(user);
+        });
+    }
     getFavoriteMoviesByUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.userRepository.getFavoriteMoviesByUserById(id);

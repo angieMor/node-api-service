@@ -15,6 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const userModel_1 = __importDefault(require("../models/userModel"));
 // db access
 class UserRepository {
+    createUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log('user: ', user);
+                return yield userModel_1.default.create(user);
+            }
+            catch (error) {
+                console.error(`Error creating user: ${error}`);
+                throw error;
+            }
+        });
+    }
+    ;
     getFavoriteMoviesByUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -32,6 +45,7 @@ class UserRepository {
             }
         });
     }
+    ;
     addMovieToFavoritesByUserId(id, movie) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -50,6 +64,7 @@ class UserRepository {
             }
         });
     }
+    ;
     updateFavoriteMovieByIdAndByUserId(id, movie) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -69,6 +84,7 @@ class UserRepository {
             }
         });
     }
+    ;
     deleteFavoriteMovieByIdAndByUserId(id, movieId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -91,5 +107,6 @@ class UserRepository {
             }
         });
     }
+    ;
 }
 exports.default = UserRepository;

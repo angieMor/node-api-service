@@ -9,6 +9,43 @@ const validationMiddleware_1 = __importDefault(require("../middlewares/validatio
 const router = express.Router();
 /**
  * @swagger
+ * /user/:
+ *   post:
+ *     summary: Creates a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - password
+ *               - email
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Name of the user
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ */
+router.post('/', userController_1.generateUser);
+/**
+ * @swagger
  * /user/{id}/favorites:
  *   get:
  *     summary: Get all the favorite movies from a specific user
@@ -117,8 +154,8 @@ router.post('/:id/favorites', validationMiddleware_1.default, userController_1.i
 /**
  * @swagger
  * /user/{id}/favorites/{imdbID}:
- *   post:
- *     summary: Adds a new favorite movie to the user's favorites list
+ *   put:
+ *     summary: Modify a favorite movie from the user's favorites list
  *     parameters:
  *       - in: path
  *         name: id
@@ -193,5 +230,47 @@ router.post('/:id/favorites', validationMiddleware_1.default, userController_1.i
  *                     type: string
  */
 router.put('/:id/favorites/:movieId', validationMiddleware_1.default, userController_1.modifyFavoriteMovieByIdAndByUserId);
+/**
+ * @swagger
+ * /user/{id}/favorites/{imdbID}:
+ *   delete:
+ *     summary: Deletes a favorite movie from the user's favorites list
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user
+ *       - in: path
+ *         name: imdbID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the movie to edit, named imdbIDs
+ *     responses:
+ *       200:
+ *         description: Favorite movie deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *       400:
+ *         description: Movie with imdbID ${movieId} doesn't exist / Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ */
 router.delete('/:id/favorites/:movieId', userController_1.removeFavoriteMovieByIdAndByUserId);
 module.exports = router;
