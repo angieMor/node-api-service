@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 import jwt from 'jsonwebtoken';
-import User from '../../models/userModel';
+import User from '../../user/models/userModel';
 import {config} from 'dotenv';
-import UserDTO from '../../dto/user.dto';
+import UserDTO from '../../user/dto/user.dto';
 
 config();
 

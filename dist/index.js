@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
 const express = require('express');
-const sequelize = require('./config/db');
+const sequelize = require('./user/config/db');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./authentication/routes/authRoutes');
 const swaggerUi = require('swagger-ui-express');

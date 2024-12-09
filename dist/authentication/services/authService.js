@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = require('bcrypt');
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const userModel_1 = __importDefault(require("../../models/userModel"));
+const userModel_1 = __importDefault(require("../../user/models/userModel"));
 const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 const SECRET_KEY = process.env.JWT_SECRET || 'secret_key';

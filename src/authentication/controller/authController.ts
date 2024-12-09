@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserDTO from '../../dto/user.dto';
+import UserDTO from '../../user/dto/user.dto';
 const AuthService = require('../services/authService');
 
 class AuthController {
