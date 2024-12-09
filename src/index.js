@@ -1,10 +1,12 @@
-require('dotenv').config();
+import {config} from 'dotenv';
 
 const express = require('express');
 const sequelize = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const swaggerUi = require('swagger-ui-express');
 import swaggerSpecs from './swaggerConfig';
+
+config();
 
 const app = express();
 

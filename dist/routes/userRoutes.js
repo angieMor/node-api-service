@@ -114,6 +114,84 @@ router.get('/:id/favorites', userController_1.findFavoriteMoviesByUserId);
  *                     type: string
  */
 router.post('/:id/favorites', validationMiddleware_1.default, userController_1.includeFavoriteMovieByUserId);
-router.put('/:id/favorites/:movieId', userController_1.modifyFavoriteMovieByIdAndByUserId);
+/**
+ * @swagger
+ * /user/{id}/favorites/{imdbID}:
+ *   post:
+ *     summary: Adds a new favorite movie to the user's favorites list
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the user
+ *       - in: path
+ *         name: imdbID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the movie to edit, named imdbIDs
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - Title
+ *               - Year
+ *               - imdbID
+ *               - Type
+ *               - Poster
+ *             properties:
+ *               Title:
+ *                 type: string
+ *                 description: The title of the movie
+ *               Year:
+ *                 type: string
+ *                 description: The release year of the movie
+ *               imdbID:
+ *                 type: string
+ *                 description: The IMDb ID of the movie
+ *               Type:
+ *                 type: string
+ *                 description: The type of the movie (e.g., movie, series, episode)
+ *               Poster:
+ *                 type: string
+ *                 description: The URL of the movie poster
+ *     responses:
+ *       200:
+ *         description: Favorite movie edited
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   Title:
+ *                     type: string
+ *                   Year:
+ *                     type: string
+ *                   imdbID:
+ *                     type: string
+ *                   Type:
+ *                     type: string
+ *                   Poster:
+ *                     type: string
+ *       400:
+ *         description: Invalid key/value in the movie object given
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ */
+router.put('/:id/favorites/:movieId', validationMiddleware_1.default, userController_1.modifyFavoriteMovieByIdAndByUserId);
 router.delete('/:id/favorites/:movieId', userController_1.removeFavoriteMovieByIdAndByUserId);
 module.exports = router;

@@ -1,10 +1,15 @@
 const { Sequelize } = require('sequelize');
+import {config} from 'dotenv';
 
-// Configuración de la conexión
-const sequelize = new Sequelize('main_database', 'postgres', '54321', {
-    host: 'localhost', // Dirección del servidor de PostgreSQL
+config();
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
-    logging: false,
+    protocol: 'postgres',
+    dialectOptions: {
+        ssl: true,
+        native:true
+    }
 });
 
 module.exports = sequelize;
