@@ -1,18 +1,8 @@
 import User from "../models/userModel";
 import MovieDTO from "../dto/movie.dto";
-import UserDTO from "../dto/user.dto";
 
 // db access
 class UserRepository {
-    async createUser(user: UserDTO) {
-        try {
-            return await User.create(user);
-        } catch (error: any) {
-            console.error(`Error creating user: ${error}`)
-            throw error;
-        }
-    };
-
     async getFavoriteMoviesByUserById(id: number) {
         try {
             const user = await User.findByPk(id, {

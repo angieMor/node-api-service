@@ -1,22 +1,10 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import MovieDTO from '../dto/movie.dto';
-import UserDTO from '../dto/user.dto';
 
 const UserServiceFactory = require('../factories/userServiceFactory')
 
 const userService = UserServiceFactory.create();
-
-export const generateUser = async(req: Request, res: Response) => {
-    try {
-        const user: Partial<UserDTO> = req.body;
-        await userService.createUser(user);
-
-        res.status(201).json({ message: 'User created' });
-    } catch (error: any) {
-        res.status(400).json({ message: 'Error', error: error.message})
-    }
-}
 
 export const findFavoriteMoviesByUserId = async (req: Request<{ id: number }>, res: Response) => {
     try {
@@ -93,7 +81,6 @@ export const removeFavoriteMovieByIdAndByUserId = async (req: Request<{
 }
 
 export default {
-    generateUser,
     findFavoriteMoviesByUserId,
     includeFavoriteMovieByUserId,
     modifyFavoriteMovieByIdAndByUserId,

@@ -18,8 +18,21 @@ const swaggerOptions = {
                 description: 'Development server',
             },
         ],
+        tags: [
+            {
+                name: 'User Management',
+                description: 'Endpoints related to user operations',
+            },
+            {
+                name: 'Authentication',
+                description: 'Endpoints related to authentication and authorization',
+            },
+        ],
     },
-    apis: ['./dist/routes/userRoutes.js'],
+    apis: [
+        './dist/routes/userRoutes.js',
+        './dist/authentication/routes/authRoutes.js'
+    ],
 };
 const swaggerSpecs = (0, swagger_jsdoc_1.default)(swaggerOptions);
 exports.default = swaggerSpecs;

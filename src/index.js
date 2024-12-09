@@ -3,6 +3,7 @@ import {config} from 'dotenv';
 const express = require('express');
 const sequelize = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./authentication/routes/authRoutes');
 const swaggerUi = require('swagger-ui-express');
 import swaggerSpecs from './swaggerConfig';
 
@@ -14,6 +15,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(express.json());
 
 app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 

@@ -1,6 +1,5 @@
 const express = require('express');
 import {
-    generateUser,
     findFavoriteMoviesByUserId,
     includeFavoriteMovieByUserId,
     modifyFavoriteMovieByIdAndByUserId,
@@ -13,47 +12,11 @@ const router = express.Router();
 
 /**
  * @swagger
- * /user/:
- *   post:
- *     summary: Creates a new user
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *               - password
- *               - email
- *             properties:
- *               name:
- *                 type: string
- *                 description: Name of the user
- *               password:
- *                 type: string
- *               email:
- *                 type: string
- *     responses:
- *       201:
- *         description: User created
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- */
-router.post('/', generateUser);
-
-/**
- * @swagger
  * /user/{id}/favorites:
  *   get:
  *     summary: Get all the favorite movies from a specific user
+ *     tags:
+ *       - User Management
  *     parameters:
  *       - in: path
  *         name: id
@@ -89,6 +52,8 @@ router.get('/:id/favorites', findFavoriteMoviesByUserId);
  * /user/{id}/favorites:
  *   post:
  *     summary: Adds a new favorite movie to the user's favorites list
+ *     tags:
+ *       - User Management
  *     parameters:
  *       - in: path
  *         name: id
@@ -163,6 +128,8 @@ router.post('/:id/favorites', validateFavoriteMovieObject, includeFavoriteMovieB
  * /user/{id}/favorites/{imdbID}:
  *   put:
  *     summary: Modify a favorite movie from the user's favorites list
+ *     tags:
+ *       - User Management
  *     parameters:
  *       - in: path
  *         name: id
@@ -243,6 +210,8 @@ router.put('/:id/favorites/:movieId', validateFavoriteMovieObject, modifyFavorit
  * /user/{id}/favorites/{imdbID}:
  *   delete:
  *     summary: Deletes a favorite movie from the user's favorites list
+ *     tags:
+ *       - User Management
  *     parameters:
  *       - in: path
  *         name: id

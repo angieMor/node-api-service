@@ -9,21 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeFavoriteMovieByIdAndByUserId = exports.modifyFavoriteMovieByIdAndByUserId = exports.includeFavoriteMovieByUserId = exports.findFavoriteMoviesByUserId = exports.generateUser = void 0;
+exports.removeFavoriteMovieByIdAndByUserId = exports.modifyFavoriteMovieByIdAndByUserId = exports.includeFavoriteMovieByUserId = exports.findFavoriteMoviesByUserId = void 0;
 const express_validator_1 = require("express-validator");
+//import UserDTO from '../dto/user.dto';
 const UserServiceFactory = require('../factories/userServiceFactory');
 const userService = UserServiceFactory.create();
-const generateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const user = req.body;
-        const createdUser = yield userService.createUser(user);
-        res.status(201).json({ message: 'User created' });
-    }
-    catch (error) {
-        res.status(400).json({ message: 'Error', error: error.message });
-    }
-});
-exports.generateUser = generateUser;
 const findFavoriteMoviesByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
@@ -91,7 +81,7 @@ const removeFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 
 });
 exports.removeFavoriteMovieByIdAndByUserId = removeFavoriteMovieByIdAndByUserId;
 exports.default = {
-    generateUser: exports.generateUser,
+    //   generateUser,
     findFavoriteMoviesByUserId: exports.findFavoriteMoviesByUserId,
     includeFavoriteMovieByUserId: exports.includeFavoriteMovieByUserId,
     modifyFavoriteMovieByIdAndByUserId: exports.modifyFavoriteMovieByIdAndByUserId,
