@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeFavoriteMovieByIdAndByUserId = exports.modifyFavoriteMovieByIdAndByUserId = exports.includeFavoriteMovieByUserId = exports.findFavoriteMoviesByUserId = void 0;
 const express_validator_1 = require("express-validator");
-//import UserDTO from '../dto/user.dto';
 const UserServiceFactory = require('../factories/userServiceFactory');
 const userService = UserServiceFactory.create();
 const findFavoriteMoviesByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -81,7 +80,6 @@ const removeFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 
 });
 exports.removeFavoriteMovieByIdAndByUserId = removeFavoriteMovieByIdAndByUserId;
 exports.default = {
-    //   generateUser,
     findFavoriteMoviesByUserId: exports.findFavoriteMoviesByUserId,
     includeFavoriteMovieByUserId: exports.includeFavoriteMovieByUserId,
     modifyFavoriteMovieByIdAndByUserId: exports.modifyFavoriteMovieByIdAndByUserId,
