@@ -1,7 +1,8 @@
-"use strict";
 const express = require('express');
 const AuthController = require('../controller/authController');
+
 const router = express.Router();
+
 /**
  * @swagger
  * /auth/register:
@@ -49,9 +50,10 @@ const router = express.Router();
  *                 type: object
  *                 properties:
  *                   error:
- *                     type: string
+ *                     type: string 
  */
 router.post('/register', AuthController.register);
+
 /**
  * @swagger
  * /auth/login:
@@ -95,7 +97,8 @@ router.post('/register', AuthController.register);
  *                 type: object
  *                 properties:
  *                   error:
- *                     type: string
+ *                     type: string 
  */
 router.post('/login', AuthController.login);
+
 module.exports = router;
