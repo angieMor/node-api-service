@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import MovieDTO from '../dto/movie.dto';
-
-const UserServiceFactory = require('../factories/userServiceFactory')
+import UserServiceFactory from '../factories/userServiceFactory';
 
 const userService = UserServiceFactory.create();
 
@@ -25,11 +24,11 @@ export const findFavoriteMoviesByUserId = async (
     }
 };
 
-export const includeFavoriteMovieByUserId = async (req: Request, res: Response) => {
+export const includeFavoriteMovieByUserId = async (
+    req: Request,
+    res: Response
+) => {
     try {
-        const userId = parseInt(req.params.id, 10);
-        const movie: Partial<MovieDTO> = req.body;
-
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.status(400).json({
@@ -38,6 +37,9 @@ export const includeFavoriteMovieByUserId = async (req: Request, res: Response) 
             });
             return;
         }
+
+        const userId = parseInt(req.params.id, 10);
+        const movie: MovieDTO = req.body;
 
         const updatedMovie = await userService.addMovieToFavoritesByUserId(userId, movie);
 
@@ -52,9 +54,6 @@ export const modifyFavoriteMovieByIdAndByUserId = async (
     res: Response
 ) => {
     try {
-        const userId = parseInt(req.params.id, 10);
-        const movie: Partial<MovieDTO> = req.body;
-
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             res.status(400).json({
@@ -63,6 +62,9 @@ export const modifyFavoriteMovieByIdAndByUserId = async (
             });
             return;
         }
+
+        const userId = parseInt(req.params.id, 10);
+        const movie: MovieDTO = req.body;
 
         if (movie.imdbID !== req.params.movieId) {
             res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
@@ -77,10 +79,13 @@ export const modifyFavoriteMovieByIdAndByUserId = async (
     }
 };
 
-export const removeFavoriteMovieByIdAndByUserId = async (req: Request<{
-    id: number,
-    movieId: string,
-}>, res: Response) => {
+export const removeFavoriteMovieByIdAndByUserId = async (
+    req: Request<{
+        id: number,
+        movieId: string,
+    }>,
+    res: Response
+) => {
     try {
         const userId = req.params.id;
         const movieId = req.params.movieId;
