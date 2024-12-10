@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../../user/models/userModel';
 import {config} from 'dotenv';

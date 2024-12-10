@@ -15,10 +15,12 @@ const UserServiceFactory = require('../factories/userServiceFactory');
 const userService = UserServiceFactory.create();
 const findFavoriteMoviesByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id } = req.params;
+        const id = parseInt(req.params.id, 10);
         const favoriteMovies = yield userService.getFavoriteMoviesByUserById(id);
-        if (!favoriteMovies)
-            return res.status(200).json({ message: 'Empty favorite movies' });
+        if (!favoriteMovies) {
+            res.status(200).json({ message: 'Empty favorite movies' });
+            return;
+        }
         res.status(200).json(favoriteMovies);
     }
     catch (error) {
@@ -32,13 +34,14 @@ const includeFavoriteMovieByUserId = (req, res) => __awaiter(void 0, void 0, voi
         const movie = req.body;
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid movie data',
                 errors: errors.array(),
             });
+            return;
         }
         const updatedMovie = yield userService.addMovieToFavoritesByUserId(userId, movie);
-        return res.status(200).json(updatedMovie);
+        res.status(200).json(updatedMovie);
     }
     catch (error) {
         res.status(400).json({ message: 'Error', error: error.message });
@@ -51,16 +54,18 @@ const modifyFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 
         const movie = req.body;
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid movie data',
                 errors: errors.array(),
             });
+            return;
         }
         if (movie.imdbID !== req.params.movieId) {
-            return res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
+            res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
+            return;
         }
         const modifiedMovie = yield userService.updateFavoriteMovieByIdAndByUserId(userId, movie);
-        return res.status(200).json(modifiedMovie);
+        res.status(200).json(modifiedMovie);
     }
     catch (error) {
         res.status(400).json({ message: 'Error', error: error.message });
@@ -72,7 +77,7 @@ const removeFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 
         const userId = req.params.id;
         const movieId = req.params.movieId;
         const deletedMovie = yield userService.deleteFavoriteMovieByIdAndByUserId(userId, movieId);
-        return res.status(200).json({ message: deletedMovie });
+        res.status(200).json({ message: deletedMovie });
     }
     catch (error) {
         res.status(400).json({ message: 'Error', error: error.message });

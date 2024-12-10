@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, RequestHandler } from 'express';
 import { validationResult } from 'express-validator';
 import MovieDTO from '../dto/movie.dto';
 
@@ -6,11 +6,18 @@ const UserServiceFactory = require('../factories/userServiceFactory')
 
 const userService = UserServiceFactory.create();
 
-export const findFavoriteMoviesByUserId = async (req: Request<{ id: number }>, res: Response) => {
+export const findFavoriteMoviesByUserId = async (
+    req: Request<{ id: string }>,
+    res: Response
+) => {
     try {
-        const { id } = req.params;
+        const id = parseInt(req.params.id, 10);
         const favoriteMovies = await userService.getFavoriteMoviesByUserById(id);
-        if (!favoriteMovies) return res.status(200).json({ message: 'Empty favorite movies' });
+
+        if (!favoriteMovies) {
+            res.status(200).json({ message: 'Empty favorite movies' });
+            return;
+        }
 
         res.status(200).json(favoriteMovies);
     } catch (error: any) {
@@ -25,40 +32,46 @@ export const includeFavoriteMovieByUserId = async (req: Request, res: Response) 
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid movie data',
                 errors: errors.array(),
             });
+            return;
         }
 
         const updatedMovie = await userService.addMovieToFavoritesByUserId(userId, movie);
 
-        return res.status(200).json(updatedMovie);
+        res.status(200).json(updatedMovie);
     } catch (error: any) {
         res.status(400).json({ message: 'Error', error: error.message})
     }
 };
 
-export const modifyFavoriteMovieByIdAndByUserId = async (req: Request, res: Response) => {
+export const modifyFavoriteMovieByIdAndByUserId = async (
+    req: Request,
+    res: Response
+) => {
     try {
         const userId = parseInt(req.params.id, 10);
         const movie: Partial<MovieDTO> = req.body;
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
+            res.status(400).json({
                 message: 'Invalid movie data',
                 errors: errors.array(),
             });
+            return;
         }
 
         if (movie.imdbID !== req.params.movieId) {
-            return res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
+            res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
+            return;
         }
 
         const modifiedMovie = await userService.updateFavoriteMovieByIdAndByUserId(userId, movie);
 
-        return res.status(200).json(modifiedMovie);
+        res.status(200).json(modifiedMovie);
     } catch (error: any) {
         res.status(400).json({ message: 'Error', error: error.message})
     }
@@ -74,7 +87,7 @@ export const removeFavoriteMovieByIdAndByUserId = async (req: Request<{
 
         const deletedMovie = await userService.deleteFavoriteMovieByIdAndByUserId(userId, movieId);
 
-        return res.status(200).json({ message: deletedMovie });
+        res.status(200).json({ message: deletedMovie });
     } catch (error: any) {
         res.status(400).json({ message: 'Error', error: error.message})
     }

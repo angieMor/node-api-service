@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 import {
     findFavoriteMoviesByUserId,
     includeFavoriteMovieByUserId,
@@ -251,4 +251,4 @@ router.put('/:id/favorites/:movieId', validateFavoriteMovieObject, modifyFavorit
  */
 router.delete('/:id/favorites/:movieId', removeFavoriteMovieByIdAndByUserId);
 
-module.exports = router;
+export default router;

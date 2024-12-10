@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt = require('bcrypt');
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userModel_1 = __importDefault(require("../../user/models/userModel"));
 const dotenv_1 = require("dotenv");
@@ -21,7 +21,7 @@ const SECRET_KEY = process.env.JWT_SECRET || 'secret_key';
 class AuthService {
     static register(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            user.password = yield bcrypt.hash(user.password, 10);
+            user.password = yield bcrypt_1.default.hash(user.password, 10);
             return yield userModel_1.default.create(user);
         });
     }
@@ -30,7 +30,7 @@ class AuthService {
             const user = yield userModel_1.default.findOne({ where: { email } });
             if (!user)
                 throw new Error('User not found');
-            const isPasswordValid = yield bcrypt.compare(password, user.password);
+            const isPasswordValid = yield bcrypt_1.default.compare(password, user.password);
             if (!isPasswordValid)
                 throw new Error('Invalid password');
             const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, SECRET_KEY, {

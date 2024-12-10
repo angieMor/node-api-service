@@ -1,11 +1,10 @@
 import {config} from 'dotenv';
 import cors from 'cors';
-
-const express = require('express');
-const sequelize = require('./user/config/db');
-const userRoutes = require('./routes/userRoutes');
-const authRoutes = require('./authentication/routes/authRoutes');
-const swaggerUi = require('swagger-ui-express');
+import express from 'express';
+import sequelize from './user/config/db';
+import userRoutes from './routes/userRoutes';
+import authRoutes  from './authentication/routes/authRoutes';
+import swaggerUi from 'swagger-ui-express';
 import swaggerSpecs from './swaggerConfig';
 
 config();
