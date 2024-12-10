@@ -26,8 +26,8 @@ app.use('/auth', authRoutes);
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
-        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`Server running on http://localhost:${PORT}`);
     });
 }).catch((error) => {
-    console.error('Error conectando a la base de datos:', error);
+    console.error('Error connecting to the database:', error);
 });
