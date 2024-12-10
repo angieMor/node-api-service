@@ -3,7 +3,7 @@ export default interface MovieDTO {
     Year: string;
     imdbID: string;
     Poster: string;
-    Genre: string,
-    Plot: string,
+    Genre: string;
+    Plot: string;
     Notes?: string;
 }
