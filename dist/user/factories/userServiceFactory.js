@@ -11,4 +11,4 @@ class UserServiceFactory {
         return new userService_1.default(userRepository);
     }
 }
-module.exports = UserServiceFactory;
+exports.default = UserServiceFactory;

@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeFavoriteMovieByIdAndByUserId = exports.modifyFavoriteMovieByIdAndByUserId = exports.includeFavoriteMovieByUserId = exports.findFavoriteMoviesByUserId = void 0;
 const express_validator_1 = require("express-validator");
-const UserServiceFactory = require('../factories/userServiceFactory');
-const userService = UserServiceFactory.create();
+const userServiceFactory_1 = __importDefault(require("../factories/userServiceFactory"));
+const userService = userServiceFactory_1.default.create();
 const findFavoriteMoviesByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = parseInt(req.params.id, 10);
@@ -30,8 +33,6 @@ const findFavoriteMoviesByUserId = (req, res) => __awaiter(void 0, void 0, void 
 exports.findFavoriteMoviesByUserId = findFavoriteMoviesByUserId;
 const includeFavoriteMovieByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = parseInt(req.params.id, 10);
-        const movie = req.body;
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             res.status(400).json({
@@ -40,6 +41,8 @@ const includeFavoriteMovieByUserId = (req, res) => __awaiter(void 0, void 0, voi
             });
             return;
         }
+        const userId = parseInt(req.params.id, 10);
+        const movie = req.body;
         const updatedMovie = yield userService.addMovieToFavoritesByUserId(userId, movie);
         res.status(200).json(updatedMovie);
     }
@@ -50,8 +53,6 @@ const includeFavoriteMovieByUserId = (req, res) => __awaiter(void 0, void 0, voi
 exports.includeFavoriteMovieByUserId = includeFavoriteMovieByUserId;
 const modifyFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = parseInt(req.params.id, 10);
-        const movie = req.body;
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             res.status(400).json({
@@ -60,6 +61,8 @@ const modifyFavoriteMovieByIdAndByUserId = (req, res) => __awaiter(void 0, void 
             });
             return;
         }
+        const userId = parseInt(req.params.id, 10);
+        const movie = req.body;
         if (movie.imdbID !== req.params.movieId) {
             res.status(400).json({ message: 'movieId and imdbID are different/invalid' });
             return;

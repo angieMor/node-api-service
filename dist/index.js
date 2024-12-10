@@ -25,8 +25,8 @@ app.use('/user', userRoutes_1.default);
 app.use('/auth', authRoutes_1.default);
 db_1.default.sync().then(() => {
     app.listen(PORT, () => {
-        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`Server running on http://localhost:${PORT}`);
     });
 }).catch((error) => {
-    console.error('Error conectando a la base de datos:', error);
+    console.error('Error connecting to the database:', error);
 });

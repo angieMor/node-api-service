@@ -7,7 +7,8 @@ exports.validateFavoriteMovieObject = [
     (0, express_validator_1.body)('Title').isString().not().optional().withMessage('Title is required and must be a string'),
     (0, express_validator_1.body)('Year').isString().notEmpty().withMessage('Year is required and must be a string'),
     (0, express_validator_1.body)('imdbID').isString().notEmpty().withMessage('imdbID is required and must be a string'),
-    (0, express_validator_1.body)('Type').isString().notEmpty().withMessage('Type is required and must be a string'),
+    (0, express_validator_1.body)('Genre').isString().notEmpty().withMessage('Genre is required and must be a string'),
+    (0, express_validator_1.body)('Plot').isString().notEmpty().withMessage('Plot is required and must be a string'),
     (0, express_validator_1.body)('Poster').isURL().withMessage('Poster must be a valid URL'),
     (0, express_validator_1.body)('Notes').isString().optional(),
 ];

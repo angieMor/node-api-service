@@ -28,7 +28,7 @@ class AuthController {
                 }
                 const user = req.body;
                 yield authService_1.default.register(user);
-                res.status(201).json({ message: 'User registered successfully', user });
+                res.status(201).json({ message: 'User registered successfully' });
             }
             catch (error) {
                 res.status(400).json({ error: error.message });
