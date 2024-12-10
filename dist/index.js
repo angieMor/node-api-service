@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = require("dotenv");
+const cors_1 = __importDefault(require("cors"));
 const express = require('express');
 const sequelize = require('./user/config/db');
 const userRoutes = require('./routes/userRoutes');
@@ -12,11 +13,16 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerConfig_1 = __importDefault(require("./swaggerConfig"));
 (0, dotenv_1.config)();
 const app = express();
+const PORT = process.env.PORT || 3000;
+app.use((0, cors_1.default)({
+    origin: `http://localhost:${PORT}`,
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig_1.default));
 app.use(express.json());
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
-const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en http://localhost:${PORT}`);

@@ -1,4 +1,5 @@
 import {config} from 'dotenv';
+import cors from 'cors';
 
 const express = require('express');
 const sequelize = require('./user/config/db');
@@ -10,14 +11,19 @@ import swaggerSpecs from './swaggerConfig';
 config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+    origin:`http://localhost:${PORT}`,
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use(express.json());
 
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
-
-const PORT = process.env.PORT || 3000;
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
