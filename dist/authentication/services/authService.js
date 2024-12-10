@@ -40,4 +40,4 @@ class AuthService {
         });
     }
 }
-module.exports = AuthService;
+exports.default = AuthService;

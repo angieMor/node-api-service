@@ -2,14 +2,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../../user/models/userModel';
 import {config} from 'dotenv';
-import UserDTO from '../../user/dto/user.dto';
+import CreateUserDTO from '../../user/dto/user.dto';
 
 config();
 
 const SECRET_KEY = process.env.JWT_SECRET || 'secret_key';
 
 class AuthService {
-  static async register(user: UserDTO) {
+  static async register(user: CreateUserDTO) {
     user.password = await bcrypt.hash(user.password, 10);
     return await User.create(user);
   }
@@ -28,4 +28,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+export default AuthService;

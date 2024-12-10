@@ -8,14 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const AuthService = require('../services/authService');
+const express_validator_1 = require("express-validator");
+const authService_1 = __importDefault(require("../services/authService"));
 class AuthController {
     static register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = req.body;
-                yield AuthService.register(user);
+                const errors = (0, express_validator_1.validationResult)(req);
+                if (!errors.isEmpty()) {
+                    res.status(400).json({
+                        message: 'Invalid user data',
+                        errors: errors.array(),
+                    });
+                    return;
+                }
+                yield authService_1.default.register(user);
                 res.status(201).json({ message: 'User registered successfully' });
             }
             catch (error) {
@@ -27,7 +39,7 @@ class AuthController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
-                const { token, user } = yield AuthService.login(email, password);
+                const { token, user } = yield authService_1.default.login(email, password);
                 res.status(200).json({ message: 'Login successful', token, user });
             }
             catch (error) {

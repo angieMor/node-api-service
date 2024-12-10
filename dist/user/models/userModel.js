@@ -22,7 +22,7 @@ const User = sequelize.define('User', {
     },
     favorite_movies: {
         type: DataTypes.JSON,
-        defaultValue: {},
+        defaultValue: [],
         allowNull: true,
     },
 }, {

@@ -1,4 +1,4 @@
-import { Request, Response, RequestHandler } from 'express';
+import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import MovieDTO from '../dto/movie.dto';
 

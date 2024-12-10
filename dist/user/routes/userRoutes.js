@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userController_1 = require("../controller/userController");
-const validationMiddleware_1 = __importDefault(require("../../middlewares/validationMiddleware"));
+const validationMiddleware_1 = require("../../middlewares/validationMiddleware");
 const router = express_1.default.Router();
 /**
  * @swagger
@@ -117,7 +117,7 @@ router.get('/:id/favorites', userController_1.findFavoriteMoviesByUserId);
  *                   message:
  *                     type: string
  */
-router.post('/:id/favorites', validationMiddleware_1.default, userController_1.includeFavoriteMovieByUserId);
+router.post('/:id/favorites', validationMiddleware_1.validateFavoriteMovieObject, userController_1.includeFavoriteMovieByUserId);
 /**
  * @swagger
  * /user/{id}/favorites/{imdbID}:
@@ -198,7 +198,7 @@ router.post('/:id/favorites', validationMiddleware_1.default, userController_1.i
  *                   message:
  *                     type: string
  */
-router.put('/:id/favorites/:movieId', validationMiddleware_1.default, userController_1.modifyFavoriteMovieByIdAndByUserId);
+router.put('/:id/favorites/:movieId', validationMiddleware_1.validateFavoriteMovieObject, userController_1.modifyFavoriteMovieByIdAndByUserId);
 /**
  * @swagger
  * /user/{id}/favorites/{imdbID}:
