@@ -6,7 +6,9 @@ import {
     removeFavoriteMovieByIdAndByUserId,
 } from '../controller/userController';
 
-import { validateFavoriteMovieObject } from '../../middlewares/validationMiddleware';
+import {
+    validateFavoriteMovieObject
+} from '../../middlewares/validationMiddleware';
 
 const router = express.Router();
 

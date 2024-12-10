@@ -18,17 +18,17 @@ class AuthController {
     static register(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = req.body;
                 const errors = (0, express_validator_1.validationResult)(req);
                 if (!errors.isEmpty()) {
                     res.status(400).json({
-                        message: 'Invalid user data',
+                        message: 'Invalid user creation data',
                         errors: errors.array(),
                     });
                     return;
                 }
+                const user = req.body;
                 yield authService_1.default.register(user);
-                res.status(201).json({ message: 'User registered successfully' });
+                res.status(201).json({ message: 'User registered successfully', user });
             }
             catch (error) {
                 res.status(400).json({ error: error.message });
@@ -38,6 +38,14 @@ class AuthController {
     static login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const errors = (0, express_validator_1.validationResult)(req);
+                if (!errors.isEmpty()) {
+                    res.status(400).json({
+                        message: 'Invalid user login data',
+                        errors: errors.array(),
+                    });
+                    return;
+                }
                 const { email, password } = req.body;
                 const { token, user } = yield authService_1.default.login(email, password);
                 res.status(200).json({ message: 'Login successful', token, user });
@@ -48,4 +56,4 @@ class AuthController {
         });
     }
 }
-module.exports = AuthController;
+exports.default = AuthController;

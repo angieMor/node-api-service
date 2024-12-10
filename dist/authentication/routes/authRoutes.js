@@ -1,7 +1,12 @@
 "use strict";
-const express = require('express');
-const AuthController = require('../controller/authController');
-const router = express.Router();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const authController_1 = __importDefault(require("../controller/authController"));
+const validationMiddleware_1 = require("../../middlewares/validationMiddleware");
+const router = express_1.default.Router();
 /**
  * @swagger
  * /auth/register:
@@ -51,7 +56,7 @@ const router = express.Router();
  *                   error:
  *                     type: string
  */
-router.post('/register', AuthController.register);
+router.post('/register', validationMiddleware_1.validateCreateUserObject, authController_1.default.register);
 /**
  * @swagger
  * /auth/login:
@@ -97,5 +102,5 @@ router.post('/register', AuthController.register);
  *                   error:
  *                     type: string
  */
-router.post('/login', AuthController.login);
-module.exports = router;
+router.post('/login', validationMiddleware_1.validateLoginUserObject, authController_1.default.login);
+exports.default = router;

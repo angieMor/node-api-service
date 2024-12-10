@@ -26,7 +26,7 @@ const swaggerOptions = {
         ],
     },
     apis: [
-        './dist/routes/userRoutes.js',
+        './dist/user/routes/userRoutes.js',
         './dist/authentication/routes/authRoutes.js'
     ],
 };

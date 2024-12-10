@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../../user/models/userModel';
 import {config} from 'dotenv';
-import CreateUserDTO from '../../user/dto/user.dto';
+import { CreateUserDTO } from '../../user/dto/user.dto';
 
 config();
 
