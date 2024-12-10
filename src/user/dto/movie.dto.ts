@@ -4,4 +4,5 @@ export default interface MovieDTO {
     imdbID: string;
     Type: string;
     Poster: string;
+    Notes?: string;
 }
