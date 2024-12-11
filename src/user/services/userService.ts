@@ -8,20 +8,20 @@ class UserService {
         this.userRepository = userRepository;
     };
 
-    async getFavoriteMoviesByUserById(id: number) {
-        return await this.userRepository.getFavoriteMoviesByUserById(id);
+    async getFavoriteMoviesByUserById(userId: number) {
+        return await this.userRepository.getFavoriteMoviesByUserById(userId);
     };
 
-    async addMovieToFavoritesByUserId(id: number, movie: MovieDTO) {
-        return await this.userRepository.addMovieToFavoritesByUserId(id, movie);
+    async addMovieToFavoritesByUserId(userId: number, movie: MovieDTO) {
+        return await this.userRepository.addMovieToFavoritesByUserId(userId, movie);
     };
 
-    async updateFavoriteMovieByIdAndByUserId(id: number, movie: MovieDTO) {
-        return await this.userRepository.updateFavoriteMovieByIdAndByUserId(id, movie);
+    async updateFavoriteMovieByIdAndByUserId(userId: number, movie: MovieDTO) {
+        return await this.userRepository.updateFavoriteMovieByIdAndByUserId(userId, movie);
     };
 
-    async deleteFavoriteMovieByIdAndByUserId(id: number, movieId: string) {
-        return await this.userRepository.deleteFavoriteMovieByIdAndByUserId(id, movieId);
+    async deleteFavoriteMovieByIdAndByUserId(userId: number, movieId: string) {
+        return await this.userRepository.deleteFavoriteMovieByIdAndByUserId(userId, movieId);
     };
 };
 

@@ -20,15 +20,9 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    favorite_movies: {
-        type: DataTypes.JSON,
-        defaultValue: [],
-        allowNull: true,
-    },
 }, {
     tableName: 'users',
-    // createdAt and updatedAt columns
     timestamps: false,
-})
+});
 
 export default User;

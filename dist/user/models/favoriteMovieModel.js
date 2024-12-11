@@ -2,26 +2,38 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize = require('../config/db');
 const { DataTypes } = require('sequelize');
-const User = sequelize.define('User', {
+const FavoriteMovie = sequelize.define('FavoriteMovies', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    Title: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    password: {
+    Year: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    imdbID: {
         type: DataTypes.STRING,
         allowNull: false
     },
+    Poster: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    Genre: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    Plot: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 }, {
-    tableName: 'users',
+    tableName: 'favorite_movies',
     timestamps: false,
 });
-exports.default = User;
+exports.default = FavoriteMovie;

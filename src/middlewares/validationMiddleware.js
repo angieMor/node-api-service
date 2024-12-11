@@ -8,7 +8,6 @@ export const validateFavoriteMovieObject = [
     body('Genre').isString().notEmpty().withMessage('Genre is required and must be a string'),
     body('Plot').isString().notEmpty().withMessage('Plot is required and must be a string'),
     body('Poster').isURL().withMessage('Poster must be a valid URL'),
-    body('Notes').isString().optional(),
 ];
 
 export const validateCreateUserObject = [

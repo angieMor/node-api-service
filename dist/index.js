@@ -7,6 +7,7 @@ const dotenv_1 = require("dotenv");
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./user/config/db"));
+require("./user/models/associations");
 const userRoutes_1 = __importDefault(require("./user/routes/userRoutes"));
 const authRoutes_1 = __importDefault(require("./authentication/routes/authRoutes"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));

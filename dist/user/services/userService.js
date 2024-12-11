@@ -14,27 +14,27 @@ class UserService {
         this.userRepository = userRepository;
     }
     ;
-    getFavoriteMoviesByUserById(id) {
+    getFavoriteMoviesByUserById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.getFavoriteMoviesByUserById(id);
+            return yield this.userRepository.getFavoriteMoviesByUserById(userId);
         });
     }
     ;
-    addMovieToFavoritesByUserId(id, movie) {
+    addMovieToFavoritesByUserId(userId, movie) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.addMovieToFavoritesByUserId(id, movie);
+            return yield this.userRepository.addMovieToFavoritesByUserId(userId, movie);
         });
     }
     ;
-    updateFavoriteMovieByIdAndByUserId(id, movie) {
+    updateFavoriteMovieByIdAndByUserId(userId, movie) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.updateFavoriteMovieByIdAndByUserId(id, movie);
+            return yield this.userRepository.updateFavoriteMovieByIdAndByUserId(userId, movie);
         });
     }
     ;
-    deleteFavoriteMovieByIdAndByUserId(id, movieId) {
+    deleteFavoriteMovieByIdAndByUserId(userId, movieId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.deleteFavoriteMovieByIdAndByUserId(id, movieId);
+            return yield this.userRepository.deleteFavoriteMovieByIdAndByUserId(userId, movieId);
         });
     }
     ;
