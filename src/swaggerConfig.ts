@@ -23,11 +23,16 @@ const swaggerOptions = {
                 name: 'Authentication',
                 description: 'Endpoints related to authentication and authorization',
             },
+            {
+                name: 'Sentiment',
+                description: 'Endpoints related to sentiment analysis',
+            },
         ],
     },
     apis: [
         './dist/user/routes/userRoutes.js',
-        './dist/authentication/routes/authRoutes.js'
+        './dist/authentication/routes/authRoutes.js',
+        './dist/user/routes/sentimentRoutes.js'
     ],
 };
 

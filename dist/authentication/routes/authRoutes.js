@@ -53,6 +53,8 @@ const router = express_1.default.Router();
  *               items:
  *                 type: object
  *                 properties:
+ *                   message:
+ *                     type: string
  *                   error:
  *                     type: string
  */
@@ -99,6 +101,8 @@ router.post('/register', validationMiddleware_1.validateCreateUserObject, authCo
  *               items:
  *                 type: object
  *                 properties:
+ *                   message:
+ *                     type: string
  *                   error:
  *                     type: string
  */

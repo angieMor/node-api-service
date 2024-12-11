@@ -8,23 +8,6 @@ import UserFavMovieAssoc from "../models/userFavMovieAssocModel";
 class UserRepository {
     async getFavoriteMoviesByUserById(userId: number) {
         try {
-            /*const user = await User.findByPk(id, {
-                attributes: ['favorite_movies'],
-            });
-
-            if (!user) {
-                throw new Error(`User with ID ${id} not found`);
-            }
-
-            return user.favorite_movies;*/
-                const queryAssoc = await UserFavMovieAssoc.findAll();
-                const queryUsers = await User.findAll();
-                const queryMovies = await FavoriteMovie.findAll();
-
-                console.log('ASSOC: ', queryAssoc);
-                console.log('Users: ', queryUsers);
-                console.log('Movies: ', queryMovies);
-
                 const userMovies = await UserFavMovieAssoc.findAll({
                     where: { user_id: userId },
                     include: [{ model: FavoriteMovie, as: 'favoriteMovie' }],
@@ -47,7 +30,7 @@ class UserRepository {
                 throw new Error(`User with ID ${userId} not found`);
             }
 
-            // Check if movie already exists in favorite_movies
+            // check if movie already exists in favorite_movies
             let favoriteMovie = await FavoriteMovie.findOne({
                 where: { Title: movie.Title }
             });
@@ -134,6 +117,10 @@ class UserRepository {
                 where: { imdbID: movieId }
             });
 
+            if (!favoriteMovie) {
+                throw new Error(`Movie with imdbID ${movieId} doesn't exist`);
+            }
+
             const isOnlyOneUserWithThisMovie = await UserFavMovieAssoc.count({
                 where: { fav_movies_id: favoriteMovie.id },
             }) <= 1;
@@ -153,21 +140,6 @@ class UserRepository {
             }
 
             return `Movie with imdbID ${movieId} removed successfully`;
-
-            /*const favoriteMovies: MovieDTO[] = user.favorite_movies || [];
-
-            if (!favoriteMovies.find(fav => fav.imdbID === movieId)) {
-                throw new Error(`Movie with imdbID ${movieId} doesn't exist`);
-            }
-
-            const removedMovie = favoriteMovies.filter(
-                (favMovie: MovieDTO) => favMovie.imdbID !== movieId
-            );
-
-            user.favorite_movies = removedMovie;
-            await user.save();
-
-            return `Movie with imdbID ${movieId} removed successfully`;*/
         } catch (error: any) {
             console.error(`Error deleting favorite movie: ${error}`);
             throw error;

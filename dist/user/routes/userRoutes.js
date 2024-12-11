@@ -41,6 +41,19 @@ const router = express_1.default.Router();
  *                     type: string
  *                   Poster:
  *                     type: string
+ *       400:
+ *         description: Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                   error:
+ *                     type: string
  */
 router.get('/:id/favorites', userController_1.findFavoriteMoviesByUserId);
 /**
@@ -115,6 +128,8 @@ router.get('/:id/favorites', userController_1.findFavoriteMoviesByUserId);
  *                 type: object
  *                 properties:
  *                   message:
+ *                     type: string
+ *                   error:
  *                     type: string
  */
 router.post('/:id/favorites', validationMiddleware_1.validateFavoriteMovieObject, userController_1.includeFavoriteMovieByUserId);
@@ -196,6 +211,8 @@ router.post('/:id/favorites', validationMiddleware_1.validateFavoriteMovieObject
  *                 type: object
  *                 properties:
  *                   message:
+ *                     type: string
+ *                   error:
  *                     type: string
  */
 router.put('/:id/favorites/:movieId', validationMiddleware_1.validateFavoriteMovieObject, userController_1.modifyFavoriteMovieByIdAndByUserId);

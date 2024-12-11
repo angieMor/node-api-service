@@ -20,21 +20,6 @@ class UserRepository {
     getFavoriteMoviesByUserById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                /*const user = await User.findByPk(id, {
-                    attributes: ['favorite_movies'],
-                });
-    
-                if (!user) {
-                    throw new Error(`User with ID ${id} not found`);
-                }
-    
-                return user.favorite_movies;*/
-                const queryAssoc = yield userFavMovieAssocModel_1.default.findAll();
-                const queryUsers = yield userModel_1.default.findAll();
-                const queryMovies = yield favoriteMovieModel_1.default.findAll();
-                console.log('ASSOC: ', queryAssoc);
-                console.log('Users: ', queryUsers);
-                console.log('Movies: ', queryMovies);
                 const userMovies = yield userFavMovieAssocModel_1.default.findAll({
                     where: { user_id: userId },
                     include: [{ model: favoriteMovieModel_1.default, as: 'favoriteMovie' }],
@@ -55,7 +40,7 @@ class UserRepository {
                 if (!user) {
                     throw new Error(`User with ID ${userId} not found`);
                 }
-                // Check if movie already exists in favorite_movies
+                // check if movie already exists in favorite_movies
                 let favoriteMovie = yield favoriteMovieModel_1.default.findOne({
                     where: { Title: movie.Title }
                 });
@@ -131,6 +116,9 @@ class UserRepository {
                 let favoriteMovie = yield favoriteMovieModel_1.default.findOne({
                     where: { imdbID: movieId }
                 });
+                if (!favoriteMovie) {
+                    throw new Error(`Movie with imdbID ${movieId} doesn't exist`);
+                }
                 const isOnlyOneUserWithThisMovie = (yield userFavMovieAssocModel_1.default.count({
                     where: { fav_movies_id: favoriteMovie.id },
                 })) <= 1;
@@ -147,20 +135,6 @@ class UserRepository {
                     });
                 }
                 return `Movie with imdbID ${movieId} removed successfully`;
-                /*const favoriteMovies: MovieDTO[] = user.favorite_movies || [];
-    
-                if (!favoriteMovies.find(fav => fav.imdbID === movieId)) {
-                    throw new Error(`Movie with imdbID ${movieId} doesn't exist`);
-                }
-    
-                const removedMovie = favoriteMovies.filter(
-                    (favMovie: MovieDTO) => favMovie.imdbID !== movieId
-                );
-    
-                user.favorite_movies = removedMovie;
-                await user.save();
-    
-                return `Movie with imdbID ${movieId} removed successfully`;*/
             }
             catch (error) {
                 console.error(`Error deleting favorite movie: ${error}`);

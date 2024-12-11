@@ -5,6 +5,7 @@ import sequelize from './user/config/db';
 import './user/models/associations';
 import userRoutes from './user/routes/userRoutes';
 import authRoutes  from './authentication/routes/authRoutes';
+import sentimentRoutes from './user/routes/sentimentRoutes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpecs from './swaggerConfig';
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/sentiment-analysis', sentimentRoutes);
 
 sequelize.sync().then(() => {
     app.listen(PORT, () => {
