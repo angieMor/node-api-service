@@ -96,7 +96,7 @@ export const removeFavoriteMovieByIdAndByUserId = async (
     } catch (error: any) {
         res.status(400).json({ message: 'Error', error: error.message})
     }
-}
+};
 
 export default {
     findFavoriteMoviesByUserId,
