@@ -9,4 +9,5 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest', // Usa ts-jest para procesar TypeScript
   },
   transformIgnorePatterns: ['node_modules/(?!some-esm-module)'],
-  };
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+};
