@@ -32,6 +32,8 @@ describe('UserController', () => {
         mockResponse = {
             status: mockStatus,
         };
+        jest.clearAllMocks();
+        jest.resetModules();
     });
     const mockMovies = [{ id: 1, Title: 'Inception', Year: '2010', imdbID: 'tt1375666' }];
     describe('findFavoriteMoviesByUserId', () => {
@@ -54,38 +56,42 @@ describe('UserController', () => {
     });
     describe('includeFavoriteMovieByUserId', () => {
         it('should add a movie to the user\'s favorite movies list', () => __awaiter(void 0, void 0, void 0, function* () {
-            jest.spyOn(mockUserService.prototype, 'addMovieToFavoritesByUserId').mockResolvedValue(mockMovies);
-            jest.mock('express-validator', () => (Object.assign(Object.assign({}, jest.requireActual('express-validator')), { validationResult: jest.fn() })));
+            jest.unmock('express-validator');
+            const mockMovie = {
+                Title: 'Inception',
+                Year: '2010',
+                id: 1,
+                imdbID: 'tt1375666',
+            };
+            jest.spyOn(mockUserService.prototype, 'addMovieToFavoritesByUserId').mockResolvedValue(mockMovie);
             mockRequest.params = { id: '1' };
-            mockRequest.body = mockMovies;
+            mockRequest.body = mockMovie;
             yield userController_1.default.includeFavoriteMovieByUserId(mockRequest, mockResponse);
-            expect(mockUserService.prototype.addMovieToFavoritesByUserId).toHaveBeenCalledWith(1, mockMovies);
+            expect(mockUserService.prototype.addMovieToFavoritesByUserId).toHaveBeenCalledWith(1, mockMovie);
+            // Verifica que se devolvió el status y el json correctos
             expect(mockStatus).toHaveBeenCalledWith(200);
-            expect(mockJson).toHaveBeenCalledWith(mockMovies);
+            expect(mockJson).toHaveBeenCalledWith(mockMovie);
         }));
-        // TODO: THIS ONE SHOULD GO TO THE CONTROLLER TESTS
-        /*it('should return validation errors if request body is invalid', async () => {
-          jest.mock('express-validator', () => ({
-            ...jest.requireActual('express-validator'),
-            validationResult: jest.fn(),
-          }));
-    
-          const mockValidationResult = validationResult as jest.Mock;
-          mockValidationResult.mockReturnValueOnce({
-              isEmpty: () => false, // Indica que hay errores de validación
-              array: () => [{ msg: 'Invalid movie data' }], // Simula un error de validación
-          });
-    
-          await userController.includeFavoriteMovieByUserId(
-            mockRequest as Request,
-            mockResponse as Response
-          );
-    
-          expect(mockStatus).toHaveBeenCalledWith(400);
-          expect(mockJson).toHaveBeenCalledWith({
-            message: 'Invalid movie data',
-            errors: [{ msg: 'Invalid movie data' }],
-          });
-        });*/
+        it('should return a message if no favorite movies are found', () => __awaiter(void 0, void 0, void 0, function* () {
+            const mockErrorMessage = 'Something went wrong';
+            jest.spyOn(mockUserService.prototype, 'addMovieToFavoritesByUserId')
+                .mockRejectedValue(new Error(mockErrorMessage));
+            mockRequest.params = { id: '1' };
+            mockRequest.body = {
+                Title: 'Inception',
+                Year: '2010',
+                imdbID: 'tt1375666',
+                Genre: 'Sci-Fi',
+                Plot: 'A mind-bending thriller',
+                Poster: 'https://example.com/poster.jpg',
+            };
+            yield userController_1.default.includeFavoriteMovieByUserId(mockRequest, mockResponse);
+            expect(mockUserService.prototype.addMovieToFavoritesByUserId).toHaveBeenCalledWith(1, mockRequest.body);
+            expect(mockStatus).toHaveBeenCalledWith(400);
+            expect(mockJson).toHaveBeenCalledWith({
+                message: 'Error',
+                error: mockErrorMessage,
+            });
+        }));
     });
 });
